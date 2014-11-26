@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 public class GameVectorTest {
 
     private static final double SIG_DIGITS = 0.000000000000001;
+    private static final double PI = Math.PI;
 
     @Test
     public void add_Leftly() throws Exception {
@@ -67,4 +68,55 @@ public class GameVectorTest {
         assertEquals(GameVector.VectorDirection.LEFT, result.direction);
         assertEquals(2, result.distance, 0);
     }
+
+    @Test
+    public void testAngleInRadians() throws Exception {
+        assertEquals(0, new GameVector(0, 1, GameVector.VectorDirection.RIGHT).getAngle(),
+                0);
+        assertEquals(Math.PI / 4,
+                new GameVector(1, 1, GameVector.VectorDirection.RIGHT).getAngle(), 0);
+        assertEquals(Math.PI / 2, new GameVector(Double.POSITIVE_INFINITY, 1,
+                GameVector.VectorDirection.RIGHT).getAngle(), 0);
+        assertEquals(3 * Math.PI / 2, new GameVector(Double.POSITIVE_INFINITY,
+                1, GameVector.VectorDirection.LEFT).getAngle(), 0);
+        assertEquals(3 * Math.PI / 2, new GameVector(Double.POSITIVE_INFINITY,
+                -1, GameVector.VectorDirection.LEFT).getAngle(), 0);
+    }
+
+    @Test
+    public void testCreateWithAngle() throws Exception {
+        checkCreateWithAngle(0, 10);
+        checkCreateWithAngle(PI / 4, 6);
+        checkCreateWithAngle(PI / 2, 8);
+        checkCreateWithAngle(3 * PI / 4, 8);
+        checkCreateWithAngle(PI, 1);
+        checkCreateWithAngle(5 * PI / 4, 9);
+        checkCreateWithAngle(3 * PI / 2, 11);
+        checkCreateWithAngle(7 * PI / 4, 99);
+    }
+
+    @Test
+    public void testCreateWithAngleTooLarge() throws Exception {
+        final int distance = 99;
+        final GameVector gameVector = GameVector.create(8.768435912084136,
+                distance);
+        assertEquals(8.768435912084136 - PI * 2, gameVector.getAngle(),
+                SIG_DIGITS);
+        assertEquals(distance, gameVector.distance, 0);
+    }
+
+    @Test
+    public void testCreateWithNegativeAngle() throws Exception {
+        final int distance = 6;
+        final GameVector gameVector = GameVector.create(-PI / 4, distance);
+        assertEquals(7 * PI / 4, gameVector.getAngle(), 0);
+        assertEquals(distance, gameVector.distance, 0);
+    }
+
+    private void checkCreateWithAngle(final double angle, final double distance) {
+        final GameVector gameVector = GameVector.create(angle, distance);
+        assertEquals(angle, gameVector.getAngle(), 0);
+        assertEquals(distance, gameVector.distance, 0);
+    }
+
 }

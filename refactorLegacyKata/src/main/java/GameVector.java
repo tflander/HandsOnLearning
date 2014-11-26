@@ -2,6 +2,19 @@ import java.awt.geom.Point2D;
 
 public class GameVector {
 
+    public static GameVector create(final double angle, final double distance) {
+        final boolean shouldReverse = shouldReverse(angle);
+        final VectorDirection direction = shouldReverse ? VectorDirection.LEFT
+                : VectorDirection.RIGHT;
+        return new GameVector(Math.tan(angle), distance, direction);
+    }
+
+    private static boolean shouldReverse(double angle) {
+        angle = angle % (Math.PI * 2);
+        final boolean shouldReverse = (angle > Math.PI / 2 && angle <= 3 * Math.PI / 2)
+                || (angle < -(Math.PI / 2) && angle >= -(3 * Math.PI / 2));
+        return shouldReverse;
+    }
     final double slope;
     final double distance;
     final VectorDirection direction;
@@ -35,6 +48,21 @@ public class GameVector {
         return new GameVector(finalY / finalX, Math.sqrt(finalX * finalX + finalY * finalY), finalX < 0 ? VectorDirection.LEFT : VectorDirection.RIGHT);
     }
 
+    public double getAngle() {
+        return getAngle(this.slope, this.direction);
+    }
+
+    public static double getAngle(final double slope,
+                                  final VectorDirection direction) {
+        final double arctanAngle = Math.atan(slope);
+        if (direction.equals(VectorDirection.LEFT)) {
+            return arctanAngle + Math.PI;
+        } else if (arctanAngle < 0) {
+            return arctanAngle + Math.PI * 2;
+        } else {
+            return arctanAngle;
+        }
+    }
 
     public enum VectorDirection {RIGHT, LEFT;}
 }
