@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/renewalMockKata/RenewalMockKata.iml" filepath="$PROJECT_DIR$/renewalMockKata/RenewalMockKata.iml" />
       <module fileurl="file://$PROJECT_DIR$/fizzBuzz/fizzBuzz.iml" filepath="$PROJECT_DIR$/fizzBuzz/fizzBuzz.iml" />
       <module fileurl="file://$PROJECT_DIR$/gildedRose/gildedRose.iml" filepath="$PROJECT_DIR$/gildedRose/gildedRose.iml" />
       <module fileurl="file://$PROJECT_DIR$/integrationKata/integrationKata.iml" filepath="$PROJECT_DIR$/integrationKata/integrationKata.iml" />
       <module fileurl="file://$PROJECT_DIR$/legacyRescueKata/legacyRescueKata.iml" filepath="$PROJECT_DIR$/legacyRescueKata/legacyRescueKata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renewalMockKata/renewalMockKata.iml" filepath="$PROJECT_DIR$/renewalMockKata/renewalMockKata.iml" />
       <module fileurl="file://$PROJECT_DIR$/romanNumerals/romanNumerals.iml" filepath="$PROJECT_DIR$/romanNumerals/romanNumerals.iml" />
     </modules>
   </component>
