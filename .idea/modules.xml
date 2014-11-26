@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/fizzBuzz/fizzBuzz.iml" filepath="$PROJECT_DIR$/fizzBuzz/fizzBuzz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gildedRose/gildedRose.iml" filepath="$PROJECT_DIR$/gildedRose/gildedRose.iml" />
+      <module fileurl="file://$PROJECT_DIR$/legacyRescueKata/legacyRescueKata.iml" filepath="$PROJECT_DIR$/legacyRescueKata/legacyRescueKata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/romanNumerals/romanNumerals.iml" filepath="$PROJECT_DIR$/romanNumerals/romanNumerals.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simpleMockKata/simpleMockKata.iml" filepath="$PROJECT_DIR$/simpleMockKata/simpleMockKata.iml" />
+    </modules>
+  </component>
+</project>
