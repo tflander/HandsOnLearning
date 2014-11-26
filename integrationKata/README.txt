@@ -16,3 +16,12 @@ username3, password3"
 
 It should reorder the lines by username and encrypt the passwords, then return a string of the same form.
 "username, drowssap"... etc
+
+
+Once you've got that done...
+
+Your boss says the rules have to change before you ship! Arggh! He forgot that encryption specifically disallows use of the lowercase 'a' and capital 'S'.
+Replace these characters with '@' and '$'.
+
+He also made a special request that the program should never return the password for people with the username "Bob Bossman".
+Instead he'd like to return the phrase "Nice try, hackers!" unencrypted.
