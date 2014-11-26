@@ -8,3 +8,6 @@ You quickly run into two problems: the CEO hired someone else to write the email
 Also, the real subscriber service appears to be unreliable and will sometimes drop its connection.
 
 Using mocks and test driving, make sure that your program will be able to handle as many situations as these two services can possibly throw at it.
+
+- Extra credit
+You just got the email module from old Grumplestiltskin, and it appears to throw an exception whenever it fails to send the email. Prove with tests that you can recover from this.
