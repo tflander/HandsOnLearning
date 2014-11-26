@@ -15,34 +15,24 @@ public class GameVector {
 
     public GameVector add(final GameVector additionalVector) {
         double angle1;
-        final double arctanAngle1 = Math.atan(slope);
         if (direction.equals(VectorDirection.LEFT)) {
-            angle1 = arctanAngle1 + Math.PI;
-        } else if (arctanAngle1 < 0) {
-            angle1 = arctanAngle1 + Math.PI * 2;
+            angle1 = Math.atan(slope) + Math.PI;
+        } else if (Math.atan(slope) < 0) {
+            angle1 = Math.atan(slope) + Math.PI * 2;
         } else {
-            angle1 = arctanAngle1;
+            angle1 = Math.atan(slope);
         }
-        final double distanceY1 = Math.sin(angle1) * distance;
-        final double distanceX1 = Math.cos(angle1) * distance;
         double angle;
-        final Point2D thisPoint = new Point2D.Double(distanceX1, distanceY1);
-        final double arctanAngle = Math.atan(additionalVector.slope);
         if (additionalVector.direction.equals(VectorDirection.LEFT)) {
-            angle = arctanAngle + Math.PI;
-        } else if (arctanAngle < 0) {
-            angle = arctanAngle + Math.PI * 2;
+            angle = Math.atan(additionalVector.slope) + Math.PI;
+        } else if (Math.atan(additionalVector.slope) < 0) {
+            angle = Math.atan(additionalVector.slope) + Math.PI * 2;
         } else {
-            angle = arctanAngle;
+            angle = Math.atan(additionalVector.slope);
         }
-        final double distanceX = Math.cos(angle) * additionalVector.distance;
-        final double distanceY = Math.sin(angle) * additionalVector.distance;
-        final Point2D thatPoint = new Point2D.Double(distanceX, distanceY);
-        final double finalX = thisPoint.getX() + thatPoint.getX();
-        final double finalY = thisPoint.getY() + thatPoint.getY();
-        final double finalDistance = Math.sqrt(finalX * finalX + finalY * finalY);
-        final VectorDirection figureDirection = finalX < 0 ? VectorDirection.LEFT : VectorDirection.RIGHT;
-        return new GameVector(finalY / finalX, finalDistance, figureDirection);
+        final double finalX = new Point2D.Double(Math.cos(angle1) * distance, Math.sin(angle1) * distance).getX() + new Point2D.Double(Math.cos(angle) * additionalVector.distance, Math.sin(angle) * additionalVector.distance).getX();
+        final double finalY = new Point2D.Double(Math.cos(angle1) * distance, Math.sin(angle1) * distance).getY() + new Point2D.Double(Math.cos(angle) * additionalVector.distance, Math.sin(angle) * additionalVector.distance).getY();
+        return new GameVector(finalY / finalX, Math.sqrt(finalX * finalX + finalY * finalY), finalX < 0 ? VectorDirection.LEFT : VectorDirection.RIGHT);
     }
 
 
