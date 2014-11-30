@@ -1,5 +1,5 @@
 Goal
-You boss has asked you make a program that will encrypt a list of passwords, and then return them as a comma separated string along with the associated username.
+Your boss has asked you to make a program that will encrypt a list of passwords, and then return them as a comma separated string along with the associated username.
 The users should be sorted alphabetically.
 
 Rules
