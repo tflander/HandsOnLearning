@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -9,7 +8,7 @@ public class RealSubscriberService implements SubscriberService {
 
 
 	@Override
-	public List<String> getSubscribersThatWillExpireBetween(Date now, Date expiration) {
+	public List<String> getSubscribersThatWillExpireBetweenNowAndDate(int day, int month, int year) {
 		if(random.nextBoolean()) {
 			return null;
 		} else {

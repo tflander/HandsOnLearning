@@ -3,6 +3,6 @@ import java.util.List;
 
 public interface SubscriberService {
 	
-	public List<String> getSubscribersThatWillExpireBetween(Date now, Date expiration);
+	public List<String> getSubscribersThatWillExpireBetweenNowAndDate(int day, int month, int year);
 
 }
