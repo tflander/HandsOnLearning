@@ -4,3 +4,7 @@
 .idea/dictionaries
 bin
 out
+build
+.gradle
+.settings
+.idea
