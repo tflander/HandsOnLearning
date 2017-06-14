@@ -4,9 +4,9 @@ The game of Rock-Paper-Scissors is simple: Rock beats Scissors, Scissors beats P
 
 Your task is to create the core logic that checks which guesture wins in a matchup. For example:
 
-| Guesture 1 | Guesture 2 | Result              |
-| ---------- | ---------- | ------------------- |
-| rock       | scissors   | rock beats scissors |
-| paper      | rock       | paper beats rock    |
+| Gesture 1 | Gesture 2 | Result              |
+| --------- | --------- | ------------------- |
+| rock      | scissors  | rock beats scissors |
+| paper     | rock      | paper beats rock    |
 
 ... and so on. Good luck!
