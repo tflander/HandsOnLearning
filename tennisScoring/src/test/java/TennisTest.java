@@ -67,7 +67,7 @@ public class TennisTest {
 
   @Test
   public void checkScore() {
-    TennisGame1 game = new TennisGame1("player1", "player2");
+    TennisGame game = new TennisGame("player1", "player2");
     
     scorePoints(game, "player1", this.player1Score);
     scorePoints(game, "player2", this.player2Score);
