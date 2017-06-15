@@ -1,29 +1,11 @@
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+public class TestData {
 
-@RunWith(Parameterized.class)
-public class TennisTest {
-
-  private int player1Score;
-  private int player2Score;
-  private String expectedScore;
-
-  public TennisTest(int player1Score, int player2Score, String expectedScore) {
-    this.player1Score = player1Score;
-    this.player2Score = player2Score;
-    this.expectedScore = expectedScore;
-  }
-
-  @Parameters(name = " {0}-{1} is {2} ")
-  public static Collection<Object[]> getAllScores() {
+  public static Collection<Object[]> getTestCases() {
     return Arrays.asList(new Object[][] {
+        // player1, player2, expectedScore
         {0, 0, "Love-All"},
         {1, 1, "Fifteen-All"},
         {2, 2, "Thirty-All"},
@@ -65,20 +47,6 @@ public class TennisTest {
     });
   }
 
-  @Test
-  public void scoreIsCorrect() {
-    TennisGame game = new TennisGame("player1", "player2");
-    
-    scorePoints(game, "player1", this.player1Score);
-    scorePoints(game, "player2", this.player2Score);
-    
-    assertEquals(this.expectedScore, game.getScore());
-  }
 
-  private void scorePoints(TennisGame game, String player, int points) {
-    for (int i = 0; i < points; i++) {
-      game.wonPoint(player);
-    }
-  }
 
 }

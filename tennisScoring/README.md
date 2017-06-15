@@ -2,6 +2,8 @@
 
 This exercise has been simplified and adapted from [https://github.com/emilybache/Tennis-Refactoring-Kata]().
 
+You can choose a difficulty level depending on your comfort and skill with refactoring in Java: Easy (TennisGameEasy.java), Medium (TennisGameMedium.java), or Hard (TennisGameHard.java).
+
 ## Tennis Scoring
 
 Tennis has a rather quirky scoring system, and to newcomers it can be a little difficult to keep track of. The tennis society has contracted you to build a scoreboard to display the current score during tennis games. 
