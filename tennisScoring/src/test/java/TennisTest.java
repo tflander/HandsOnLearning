@@ -22,7 +22,7 @@ public class TennisTest {
         this.expectedScore = expectedScore;
     }
     
-    @Parameters
+    @Parameters(name = "{0}-{1} ==> {2}")
     public static Collection<Object[]> getAllScores() {
         return Arrays.asList(new Object[][] {
                 { 0, 0, "Love-All" },
