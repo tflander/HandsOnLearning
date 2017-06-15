@@ -66,7 +66,7 @@ public class TennisTest {
   }
 
   @Test
-  public void checkScore() {
+  public void scoreIsCorrect() {
     TennisGame game = new TennisGame("player1", "player2");
     
     scorePoints(game, "player1", this.player1Score);
