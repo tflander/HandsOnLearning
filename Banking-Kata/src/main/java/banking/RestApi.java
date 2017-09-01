@@ -29,12 +29,6 @@ public class RestApi {
   public void run(Service spark) {
     spark.port(PORT);
 
-    spark.before((request, response) -> {
-      response.header("Access-Control-Allow-Origin", "*");
-      response.header("Access-Control-Request-Method", "*");
-      response.header("Access-Control-Allow-Headers", "*");
-    });
-
     spark.post("/accounts", (request, response) -> {
       Money startingBalance = new Gson().fromJson(request.body(), Money.class);
       Account account = new Account(startingBalance);
@@ -56,7 +50,6 @@ public class RestApi {
 
     spark.after((request, response) -> {
       response.type("application/json");
-
     });
   }
 
