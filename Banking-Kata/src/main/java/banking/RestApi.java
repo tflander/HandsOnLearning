@@ -4,6 +4,7 @@ import banking.model.Account;
 import banking.model.Money;
 import banking.persistence.FileRepository;
 import banking.persistence.Repository;
+import banking.service.AccountService;
 import com.google.gson.Gson;
 import spark.Service;
 
@@ -17,12 +18,12 @@ public class RestApi {
   private Repository<Account> accountRepository;
 
   public static void main(String[] strings) {
-    new RestApi(
-        new FileRepository<>(Account.class, new File("accounts.json")))
-            .run(Service.ignite());
+    FileRepository<Account> repository = new FileRepository<>(Account.class, new File("accounts.json"));
+    AccountService service = new AccountService(repository);
+    new RestApi(repository, service).run(Service.ignite());
   }
 
-  public RestApi(Repository<Account> accountRepository) {
+  public RestApi(Repository<Account> accountRepository, AccountService accountService) {
     this.accountRepository = accountRepository;
   }
 

@@ -26,16 +26,16 @@ public class AccountServiceTest {
 
   @Test
   public void openingAnAccountSavesItInTheAccountRepository() throws Exception {
-    Account account = accountService.openNewAccount();
+    Account account = accountService.openNewAccount(Money.of("0.00"));
     Optional<Account> savedAccount = repository.findOne(account.getId());
     assertThat(savedAccount).isPresent();
   }
 
   @Test
-  public void newAccountsStartWithZeroBalance() throws Exception {
-    Money expectedBalance = Money.of("0.00");
+  public void newAccountsStartWithCorrectBalance() throws Exception {
+    Money expectedBalance = Money.of("7.11");
 
-    Account account = accountService.openNewAccount();
+    Account account = accountService.openNewAccount(expectedBalance);
     Optional<Account> savedAccount = repository.findOne(account.getId());
 
     assertThat(savedAccount.get().getBalance()).isEqualTo(expectedBalance);

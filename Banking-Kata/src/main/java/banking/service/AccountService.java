@@ -15,8 +15,8 @@ public class AccountService {
     this.accountRepository = accountRepository;
   }
 
-  public Account openNewAccount() {
-    Account account = new Account();
+  public Account openNewAccount(Money startingBalance) {
+    Account account = new Account(startingBalance);
     accountRepository.save(account);
     return account;
   }

@@ -8,6 +8,7 @@ import static org.hamcrest.core.Is.is;
 import banking.model.Account;
 import banking.model.Money;
 import banking.persistence.FakeRepository;
+import banking.service.AccountService;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
@@ -22,6 +23,7 @@ public class RestApiTest {
   private static final String ACCOUNT_BALANCE = "12.34";
 
   private FakeRepository<Account> accountRepository;
+  private AccountService accountService;
   private Account account;
   private Service spark;
 
@@ -36,11 +38,12 @@ public class RestApiTest {
 
     accountRepository = new FakeRepository<>();
     accountRepository.items.add(account);
+    accountService = new AccountService(accountRepository);
   }
 
   public void startServer() {
     spark = Service.ignite();
-    new RestApi(accountRepository).run(spark);
+    new RestApi(accountRepository, accountService).run(spark);
     spark.awaitInitialization();
   }
 
