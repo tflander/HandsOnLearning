@@ -3,23 +3,32 @@ package banking.persistence;
 import banking.model.Identifiable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 public class FakeRepository<T extends Identifiable> implements Repository<T> {
 
-  public List<T> items = new ArrayList<>();
+  public Map<UUID, T> items = new HashMap<>();
 
   @Override
   public Optional<T> findOne(final UUID id) {
-    return items.stream().filter((T item) -> id.equals(item.getId())).findFirst();
+    return Optional.ofNullable(items.get(id));
   }
 
   @Override
   public void save(T item) {
-    findOne(item.getId()).ifPresent((existingItem) -> items.remove(existingItem));
-    items.add(item);
+    items.put(item.getId(), item);
+  }
+  
+  public List<T> allItems() {
+    return new ArrayList<>(items.values());
+  }
+  
+  public void clear() {
+    items.clear();
   }
 
 }

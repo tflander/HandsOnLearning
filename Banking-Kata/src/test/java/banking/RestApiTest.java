@@ -37,7 +37,7 @@ public class RestApiTest {
     account = new Account(Money.of(ACCOUNT_BALANCE));
 
     accountRepository = new FakeRepository<>();
-    accountRepository.items.add(account);
+    accountRepository.save(account);
     accountService = new AccountService(accountRepository);
   }
 
@@ -72,7 +72,7 @@ public class RestApiTest {
   @Test
   public void canCreateAnAccountByPostingToAccountsEndpoint() throws Exception {
     Money startingBalance = Money.of("67.98");
-    accountRepository.items.clear();
+    accountRepository.clear();
     
     ValidatableResponse responseValidator = given()
       .contentType(ContentType.JSON)
@@ -85,7 +85,7 @@ public class RestApiTest {
       .statusCode(200);
     
     assertThat(accountRepository.items).hasSize(1);
-    Account savedAccount = accountRepository.items.get(0);
+    Account savedAccount = accountRepository.allItems().get(0);
     assertThat(savedAccount.getBalance()).isEqualTo(startingBalance);
     
     responseValidator.body("id", is(savedAccount.getId().toString()));
