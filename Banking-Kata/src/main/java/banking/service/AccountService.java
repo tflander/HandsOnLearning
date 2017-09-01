@@ -14,6 +14,10 @@ public class AccountService {
   public AccountService(Repository<Account> accountRepository) {
     this.accountRepository = accountRepository;
   }
+  
+  public Account findAccount(UUID accountId) {
+    return accountRepository.findOne(accountId).orElseThrow(() -> new NoSuchElementException("Invalid accountId"));
+  }
 
   public Account openNewAccount(Money startingBalance) {
     Account account = new Account(startingBalance);
@@ -33,7 +37,4 @@ public class AccountService {
     accountRepository.save(updatedAccount);
   }
 
-  private Account findAccount(UUID accountId) {
-    return accountRepository.findOne(accountId).orElseThrow(() -> new NoSuchElementException("Invalid accountId"));
-  }
 }

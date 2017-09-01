@@ -40,6 +40,25 @@ public class AccountServiceTest {
 
     assertThat(savedAccount.get().getBalance()).isEqualTo(expectedBalance);
   }
+  
+  @Test
+  public void findAccountFindsItFromTheRepository() throws Exception {
+    Money expectedBalance= Money.of("12.34");
+    Account account = new Account(expectedBalance);
+    repository.save(account);
+    
+    Account savedAccount = accountService.findAccount(account.getId());
+    assertThat(savedAccount.getBalance()).isEqualTo(expectedBalance);
+  }
+  
+  @Test
+  public void findAccountThrowsAnErrorIfAccountIsNotFound() throws Exception {
+    UUID nonExistantAccountId = UUID.randomUUID();
+
+    Assertions.assertThatThrownBy(() -> {
+      accountService.findAccount(nonExistantAccountId);
+    }).hasMessage("Invalid accountId");
+  }
 
   @Test
   public void depositAddsFundsToSavedAccount() throws Exception {
