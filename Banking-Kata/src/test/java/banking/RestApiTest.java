@@ -43,7 +43,7 @@ public class RestApiTest {
 
   public void startServer() {
     spark = Service.ignite();
-    new RestApi(accountRepository, accountService).run(spark);
+    new RestApi(accountService).run(spark);
     spark.awaitInitialization();
   }
 
@@ -60,13 +60,13 @@ public class RestApiTest {
         .pathParam("accountId", account.getId().toString())
 
     .when()
-        .get("/accounts/{accountId}/balance")
+        .get("/accounts/{accountId}")
 
     .then()
         .statusCode(200)
         .body(
-            "amount", closeToFloat(12.34, ONE_CENT),
-            "currency", is("USD"));
+            "balance.amount", closeToFloat(12.34, ONE_CENT),
+            "balance.currency", is("USD"));
   }
   
   @Test

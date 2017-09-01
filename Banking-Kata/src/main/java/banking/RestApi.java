@@ -3,7 +3,6 @@ package banking;
 import banking.model.Account;
 import banking.model.Money;
 import banking.persistence.FileRepository;
-import banking.persistence.Repository;
 import banking.service.AccountService;
 import com.google.gson.Gson;
 import spark.Service;
@@ -15,17 +14,15 @@ public class RestApi {
 
   private static final int PORT = 8080;
 
-  private Repository<Account> accountRepository;
   private AccountService accountService;
 
   public static void main(String[] strings) {
     FileRepository<Account> repository = new FileRepository<>(Account.class, new File("accounts.json"));
     AccountService service = new AccountService(repository);
-    new RestApi(repository, service).run(Service.ignite());
+    new RestApi(service).run(Service.ignite());
   }
 
-  public RestApi(Repository<Account> accountRepository, AccountService accountService) {
-    this.accountRepository = accountRepository;
+  public RestApi(AccountService accountService) {
     this.accountService = accountService;
   }
 
@@ -37,15 +34,10 @@ public class RestApi {
       return accountService.openNewAccount(startingBalance);
     }, new Gson()::toJson);
 
-    spark.get("/accounts/:id/balance", (request, response) -> {
-
+    
+    spark.get("/accounts/:id", (request, response) -> {
       UUID id = UUID.fromString(request.params("id"));
-
-      return accountRepository
-          .findOne(id)
-          .map(account -> account.getBalance())
-          .orElse(null);
-
+      return accountService.findAccount(id);
     }, new Gson()::toJson);
 
 
