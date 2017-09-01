@@ -1,5 +1,7 @@
 package banking.email;
 
+import java.util.UUID;
+
 public interface EmailService {
-	public void sendMessage(String emailAddress, String message);
+	public UUID sendMessage(String emailAddress, String message);
 }
