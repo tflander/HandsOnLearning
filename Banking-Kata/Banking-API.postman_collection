@@ -1,0 +1,61 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Banking API",
+		"_postman_id": "4baed4fe-cdb4-77a9-87f0-ad507dbc23c4",
+		"description": "REST API endpoints for the Banking Kata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create account",
+			"request": {
+				"url": "http://localhost:8080/accounts",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": 65.00,\n\t\"currency\": \"USD\"\n}"
+				},
+				"description": "Make a new account with starting balance."
+			},
+			"response": []
+		},
+		{
+			"name": "Read account",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/accounts/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"accounts",
+						":id"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "id",
+							"value": "324129b7-0381-4c5f-aadf-eaff30046b00",
+							"description": "accountId (UUID string)"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
