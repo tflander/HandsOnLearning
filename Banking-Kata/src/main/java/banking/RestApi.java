@@ -16,6 +16,7 @@ public class RestApi {
   private static final int PORT = 8080;
 
   private Repository<Account> accountRepository;
+  private AccountService accountService;
 
   public static void main(String[] strings) {
     FileRepository<Account> repository = new FileRepository<>(Account.class, new File("accounts.json"));
@@ -25,6 +26,7 @@ public class RestApi {
 
   public RestApi(Repository<Account> accountRepository, AccountService accountService) {
     this.accountRepository = accountRepository;
+    this.accountService = accountService;
   }
 
   public void run(Service spark) {
@@ -32,9 +34,7 @@ public class RestApi {
 
     spark.post("/accounts", (request, response) -> {
       Money startingBalance = new Gson().fromJson(request.body(), Money.class);
-      Account account = new Account(startingBalance);
-      accountRepository.save(account);
-      return account;
+      return accountService.openNewAccount(startingBalance);
     }, new Gson()::toJson);
 
     spark.get("/accounts/:id/balance", (request, response) -> {
