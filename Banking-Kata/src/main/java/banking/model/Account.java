@@ -1,6 +1,5 @@
 package banking.model;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Account implements Identifiable {
@@ -17,10 +16,6 @@ public class Account implements Identifiable {
     this(UUID.randomUUID(), startingBalance);
   }
   
-  public Account() {
-    this(new Money(BigDecimal.ZERO));
-  }
-
   @Override
   public UUID getId() {
     return id;

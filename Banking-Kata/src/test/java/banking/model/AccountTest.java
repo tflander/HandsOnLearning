@@ -2,18 +2,9 @@ package banking.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import banking.model.Account;
-import banking.model.Money;
 import org.junit.Test;
 
 public class AccountTest {
-
-  @Test
-  public void defaultStartingBalanceIsZeroDollars() throws Exception {
-    Account account = new Account();
-
-    assertThat(account.getBalance()).isEqualTo(Money.of("0.00"));
-  }
 
   @Test
   public void canSpecifyAStartingBalance() throws Exception {
