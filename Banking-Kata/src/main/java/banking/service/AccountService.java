@@ -22,9 +22,18 @@ public class AccountService {
   }
 
   public void deposit(UUID accountId, Money amount) {
-    Account account = accountRepository.findOne(accountId).orElseThrow(() -> new NoSuchElementException("Invalid accountId"));
+    Account account = findAccount(accountId);
     Account updatedAccount = account.cloneWithBalance(account.getBalance().plus(amount));
     accountRepository.save(updatedAccount);
   }
 
+  public void withdraw(UUID accountId, Money amount) {
+    Account account = findAccount(accountId);
+    Account updatedAccount = account.cloneWithBalance(account.getBalance().minus(amount));
+    accountRepository.save(updatedAccount);
+  }
+
+  private Account findAccount(UUID accountId) {
+    return accountRepository.findOne(accountId).orElseThrow(() -> new NoSuchElementException("Invalid accountId"));
+  }
 }
