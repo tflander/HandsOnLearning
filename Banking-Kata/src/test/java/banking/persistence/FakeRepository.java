@@ -18,6 +18,7 @@ public class FakeRepository<T extends Identifiable> implements Repository<T> {
 
   @Override
   public void save(T item) {
+    findOne(item.getId()).ifPresent((existingItem) -> items.remove(existingItem));
     items.add(item);
   }
 

@@ -5,11 +5,16 @@ import java.util.UUID;
 
 public class Account implements Identifiable {
   
-  private UUID id = UUID.randomUUID();
+  private final UUID id;
   private Money balance;
+  
+  private Account(UUID id, Money balance) {
+    this.id = id;
+    this.balance = balance;
+  }
 
   public Account(Money startingBalance) {
-    balance = startingBalance;
+    this(UUID.randomUUID(), startingBalance);
   }
   
   public Account() {
@@ -31,6 +36,10 @@ public class Account implements Identifiable {
 
   public void withdraw(Money amount) {
     balance = balance.minus(amount);
+  }
+
+  public Account cloneWithBalance(Money balance) {
+    return new Account(this.id, balance);
   }
 
 }
