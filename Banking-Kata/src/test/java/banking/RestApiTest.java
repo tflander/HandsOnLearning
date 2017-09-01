@@ -5,6 +5,8 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import banking.model.Account;
+import banking.model.Money;
 import banking.persistence.FakeRepository;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;

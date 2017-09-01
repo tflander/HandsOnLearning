@@ -1,6 +1,4 @@
-package banking;
-
-import banking.model.Identifiable;
+package banking.model;
 
 import java.math.BigDecimal;
 import java.util.UUID;

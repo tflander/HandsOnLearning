@@ -1,5 +1,7 @@
 package banking;
 
+import banking.model.Account;
+import banking.model.Money;
 import banking.persistence.FileRepository;
 import banking.persistence.Repository;
 import com.google.gson.Gson;

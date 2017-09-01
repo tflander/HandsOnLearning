@@ -23,7 +23,7 @@
  * SUCH DAMAGE.
  * 
  */
-package banking;
+package banking.model;
 
 import static java.math.BigDecimal.ZERO;
 

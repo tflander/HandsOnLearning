@@ -1,7 +1,9 @@
-package banking;
+package banking.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import banking.model.Account;
+import banking.model.Money;
 import org.junit.Test;
 
 public class AccountTest {
