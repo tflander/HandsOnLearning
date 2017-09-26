@@ -8,3 +8,9 @@ build
 .gradle
 .settings
 .idea
+
+# build
+[Oo]bj/
+[Bb]in/
+packages/
+TestResults/
