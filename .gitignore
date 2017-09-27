@@ -8,6 +8,7 @@ build
 .gradle
 .settings
 .idea
+.iml
 
 # build
 [Oo]bj/
