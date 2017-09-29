@@ -9,6 +9,7 @@ build
 .settings
 .idea
 .iml
+.suo
 
 # build
 [Oo]bj/
