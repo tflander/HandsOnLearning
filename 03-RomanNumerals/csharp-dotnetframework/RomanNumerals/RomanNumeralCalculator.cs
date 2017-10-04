@@ -2,13 +2,13 @@
 
 namespace Katas
 {
-    public class RomanNumeralsCalculator
+    public class RomanNumeralCalculator
     {
         static void Main(string[] args)
         {
         }
 
-        public string add(string numeral1, string numeral2){
+        public string Add(string numeral1, string numeral2){
             return null;
         }
     }

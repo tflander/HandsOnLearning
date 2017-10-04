@@ -3,16 +3,16 @@ using NUnit.Framework;
 namespace Katas
 {
     [TestFixture]
-    public class RomanNumeralsTest
+    public class RomanNumeralCalculatorTest
     {
         [Test]
         [Ignore("Remove this line when you're ready to run the tests")]
-        public void TestMethod1()
+        public void ShouldReturnIIforIplusI()
         {
-            RomanNumeralsCalculator calculator = new RomanNumeralsCalculator();
+            var calculator = new RomanNumeralCalculator();
 
-            string actualResult = calculator.add("I", "I");
-            string expectedResult = "II";
+            var actualResult = calculator.Add("I", "I");
+            var expectedResult = "II";
 
             Assert.AreEqual(expectedResult, actualResult);
         }
