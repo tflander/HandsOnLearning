@@ -18,12 +18,4 @@ namespace Katas
             Assert.AreEqual(expectedResult, actualResult);
         }
     }
-
-    public class IntegerToRomanConverter
-    {
-        public string Convert(int number)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 }
