@@ -11,8 +11,9 @@ public sealed class Money : IEquatable<Money>, IComparable, IComparable<Money>
 	RegionInfo regionInfo;
 
 	long amount;
+    public Guid id { get; private set; }
 
-	public Money() : this(0, CultureInfo.CurrentCulture) { }
+    public Money() : this(0, CultureInfo.CurrentCulture) { }
 
 	public Money(decimal amount) : this(amount, CultureInfo.CurrentCulture) { }
 
