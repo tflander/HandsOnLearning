@@ -1,22 +1,47 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Katas
 {
     public class Account : Identifiable
     {
-        public Guid id { get; private set; }
-        public Money balance { get; private set; }
+        public Guid id { get; set; }
+        
+        [NotMapped]
+        public Money balance
+        {
+            get
+            {
+                return new Money(DbBalance, "en-US");
+            }
+            set
+            {
+                DbBalance = balance.Amount;
+            }
+        }
+        public decimal DbBalance { get; set; }
 
         private Account(Guid id, Money balance)
 		{
 			this.id = id;
-			this.balance = balance;
+			DbBalance = balance.Amount;
 		}
 
-		public Account(Money startingBalance)
+        public Account(decimal startingBalance)
+        {
+            this.id = Guid.NewGuid();
+            this.DbBalance = startingBalance;
+        }
+
+        public Account(Money startingBalance)
 		{
             this.id = Guid.NewGuid();
-            this.balance = startingBalance;
+            this.DbBalance = startingBalance.Amount;
 		}
+        public Account()
+        {
+
+        }
 
         public Guid GetId()
         {
