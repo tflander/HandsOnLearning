@@ -10,7 +10,7 @@ public class IntegerToRomanConverterTest {
   public void convertsSixteenToXVI() throws Exception {
     IntegerToRomanConverter converter = new IntegerToRomanConverter();
 
-    assertEquals("XVI", converter.convertToInteger(16));
+    assertEquals("XVI", converter.convertToRoman(16));
   }
 
 }

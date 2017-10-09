@@ -1,7 +1,7 @@
 
 public class IntegerToRomanConverter {
 
-  public String convertToInteger(int number) {
+  public String convertToRoman(int number) {
     return null;
   }
 
