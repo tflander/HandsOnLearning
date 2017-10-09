@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegerToRomanConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RomanNumeralsCalculator.cs" />
+    <Compile Include="RomanNumeralCalculator.cs" />
+    <Compile Include="RomanToIntegerConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

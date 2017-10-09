@@ -6,7 +6,7 @@ namespace Katas
 {
     public class TennisTestData
 	{
-		static object[] TestData = 
+		public static object[] TestData = 
     	{
 				new object[] {0, 0, "Love-All"},
 				new object[] {1, 1, "Fifteen-All"},
