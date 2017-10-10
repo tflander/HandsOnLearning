@@ -20,14 +20,26 @@ public class CustomerServiceTest {
   private CustomerService customerService;
   private User user;
   private UUID userId;
+  private MockEmailService mockEmailService;
 
   @Before
   public void setup() {
     user = new User("email@example.com");
     userId = user.getId();
-    userRepository = new NetworkRepository<User>();
+    userRepository = new NetworkRepository<>();
     userRepository.save(user);
+
+    mockEmailService = new MockEmailService();
     customerService = new CustomerService(userRepository, mockEmailService);
+  }
+
+  class MockEmailService implements EmailService {
+
+    @Override
+    public UUID sendMessage(String emailAddress, String message) {
+      // Whatever fake implementation you choose...
+      return null;
+    }
   }
 
   @Test
@@ -58,22 +70,15 @@ public class CustomerServiceTest {
     assertThat(user.getEmailAddress()).isNotEqualTo("my-new-email@example.com");
   }
 
-  
-  
-  
-  private UUID expectedConfirmationCode = UUID.randomUUID();
-  private EmailService mockEmailService = new EmailService() {
-
-    @Override
-    public UUID sendMessage(String emailAddress, String message) {
-      // Whatever fake implementation you choose...
-      return null;
-    }
-  };
-  
   @Test
   @Ignore("Implement this test!")
-  public void sendFraudAlertWillNotifyTheUserByEmail() throws Exception {
+  public void sendFraudAlertShouldNotifyTheUserByEmail() throws Exception {
+    String expectedEmailAddress = "email@example.com";
+    String expectedMessage = "You may have been the victim of fraud!";
+    UUID expectedConfirmationCode = UUID.randomUUID();
+
+    // TODO: use your mock here...
+
     UUID confirmationCode = customerService.sendFraudAlert(userId);
 
     assertThat(confirmationCode).isEqualTo(expectedConfirmationCode);
