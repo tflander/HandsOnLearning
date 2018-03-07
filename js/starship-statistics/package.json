@@ -1,0 +1,17 @@
+{
+    "name": "starship-statistics",
+    "version": "1.0.0",
+    "description": "A kata in a galaxy far, far away",
+    "main": "index.js",
+    "scripts": {
+        "test": "ava"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "ava": "^0.25.0",
+        "testdouble": "^3.5.2"
+    },
+    "dependencies": {
+        "axios": "^0.18.0"
+    }
+}
