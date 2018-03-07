@@ -4,29 +4,29 @@ namespace BankingKataAPI.Models
 {
     public class User : Identifiable
     {
-        public Guid id { get; private set; }
-        public string emailAddress { get; private set; }
+        public Guid Id { get; private set; }
+        public string EmailAddress { get; private set; }
 
         private User(Guid id, string emailAddress)
 		{
-			this.id = id;
-			this.emailAddress = emailAddress;
+			this.Id = id;
+			this.EmailAddress = emailAddress;
 		}
 
 		public User(String emailAddress)
 		{
-            this.id = Guid.NewGuid();
-            this.emailAddress = emailAddress;
+            this.Id = Guid.NewGuid();
+            this.EmailAddress = emailAddress;
 		}
 
         public Guid GetId()
         {
-            return id;
+            return Id;
         }
 
 		public User cloneWithEmailAddress(string emailAddress)
 		{
-			return new User(this.id, emailAddress);
+			return new User(this.Id, emailAddress);
 		}
     }
 }
