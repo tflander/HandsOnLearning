@@ -87,5 +87,14 @@ namespace BankingKataAPI.Test.Services
 
             Assert.Equal(new Money(25.70m), savedAccount.Balance);
         }
+
+        [Fact]
+        public void WithdrawThrowsErrorIfAccountDoesNotExist()
+        {
+            var nonExistantAccountId = Guid.NewGuid();
+
+            var exception = Assert.Throws<Exception>(() => _service.Withdraw(nonExistantAccountId, new Money(12.34m)));
+            Assert.Equal("Invalid account", exception.Message);
+        }
     }
 }
