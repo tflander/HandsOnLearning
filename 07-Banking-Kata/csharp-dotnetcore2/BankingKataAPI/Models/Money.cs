@@ -61,7 +61,7 @@ namespace BankingKataAPI.Models
 
         public string ISOCurrencySymbol => _regionInfo.ISOCurrencySymbol;
 
-        public decimal Amount => LongAmount / CentFactor;
+        public decimal Amount => (decimal)LongAmount / CentFactor;
 
         public int DecimalDigits => _cultureInfo.NumberFormat.CurrencyDecimalDigits;
 
@@ -167,12 +167,10 @@ namespace BankingKataAPI.Models
 
         public bool Equals(Money other)
         {
+            if (other is null) return false;
 
-            if (object.ReferenceEquals(other, null)) return false;
-
-            return ((ISOCurrencySymbol == other.ISOCurrencySymbol) &&
-
-                    (LongAmount == other.LongAmount));
+            return ISOCurrencySymbol == other.ISOCurrencySymbol 
+                   && LongAmount == other.LongAmount;
 
         }
 
