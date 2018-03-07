@@ -17,7 +17,7 @@ namespace BankingKataAPI.Test.Persistence
 
         public T FindOne(Guid id)
         {
-            return _items[id];
+            return _items.ContainsKey(id) ? _items[id] : null;
         }
 
         public void Save(T item)
