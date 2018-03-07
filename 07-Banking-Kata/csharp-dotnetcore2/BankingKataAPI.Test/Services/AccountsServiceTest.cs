@@ -65,5 +65,27 @@ namespace BankingKataAPI.Test.Services
             var savedAccount = _repository.FindOne(account.GetId());
             Assert.Equal(new Money(64.35m), savedAccount.Balance);
         }
+
+        [Fact]
+        public void DepositThrowsErrorIfAccountDoesNotExist()
+        {
+            var nonExistantAccountId = Guid.NewGuid();
+
+            var exception = Assert.Throws<Exception>(() => _service.Deposit(nonExistantAccountId, new Money(12.34m)));
+            Assert.Equal("Invalid account", exception.Message);
+        }
+
+
+        [Fact]
+        public void WithdrawSubtractsFundsFromSavedAccount()
+        {
+            var account = new Account(new Money(82.00m));
+            _repository.Save(account);
+
+            _service.Withdraw(account.GetId(), new Money(56.30m));
+            var savedAccount = _repository.FindOne(account.GetId());
+
+            Assert.Equal(new Money(25.70m), savedAccount.Balance);
+        }
     }
 }
