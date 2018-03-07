@@ -7,6 +7,6 @@ namespace BankingKataAPI.Services
 {
     public interface IEmailService
     {
-        Guid sendMessage(string emailAddress, string message);
+        Guid SendMessage(string emailAddress, string message);
     }
 }

@@ -1,29 +1,42 @@
-﻿using BankingKataAPI.Models;
+﻿using System;
+using BankingKataAPI.Models;
+using BankingKataAPI.Persistence;
 
 namespace BankingKataAPI.Services
 {
     public class AccountsService
     {
-        public Account FindAccount(int id)
+        private readonly IRepository<Account> _repository;
+
+        public AccountsService(IRepository<Account> repository)
         {
-            return new Account(new Money(123, "en-US"));
+            _repository = repository;
         }
 
-        public void OpenNewAccount(Money startingBalance)
+        public Account FindAccount(Guid id)
         {
-            Account account = new Account(startingBalance);
+            return _repository.FindOne(id) ?? throw new Exception("Invalid account");
         }
 
-		public void Deposit(int accountId, Money amount)
+        public Account OpenNewAccount(Money startingBalance)
+        {
+            var account = new Account(startingBalance);
+            _repository.Save(account);
+            return account;
+        }
+
+		public void Deposit(Guid accountId, Money amount)
 		{
-			Account account = FindAccount(accountId);
-            Account updatedAccount = account.cloneWithBalance(account.balance + amount);
+			var account = FindAccount(accountId);
+            var updatedAccount = account.CloneWithBalance(account.Balance + amount);
+		    _repository.Save(updatedAccount);
 		}
 
-		public void withdraw(int accountId, Money amount)
+		public void Withdraw(Guid accountId, Money amount)
 		{
-			Account account = FindAccount(accountId);
-			Account updatedAccount = account.cloneWithBalance(account.balance - amount);
+			var account = FindAccount(accountId);
+			var updatedAccount = account.CloneWithBalance(account.Balance - amount);
+		    _repository.Save(updatedAccount);
 		}
     }
 }

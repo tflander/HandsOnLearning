@@ -1,32 +1,34 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace BankingKataAPI.Models
 {
     public class Account : Identifiable
     {
-        public Guid id { get; private set; }
-        public Money balance { get; private set; }
+        public Guid Id { get; }
+        public Money Balance { get; }
 
+        [JsonConstructor]
         private Account(Guid id, Money balance)
 		{
-			this.id = id;
-			this.balance = balance;
+			Id = id == Guid.Empty ? Guid.NewGuid() : id;
+			Balance = balance;
 		}
 
-		public Account(Money startingBalance)
+		public Account(Money balance)
+            : this(Guid.Empty, balance)
 		{
-            this.id = Guid.NewGuid();
-            this.balance = startingBalance;
+            
 		}
 
         public Guid GetId()
         {
-            return id;
+            return Id;
         }
 
-		public Account cloneWithBalance(Money balance)
+		public Account CloneWithBalance(Money balance)
 		{
-			return new Account(this.id, balance);
+			return new Account(Id, balance);
 		}
     }
 }

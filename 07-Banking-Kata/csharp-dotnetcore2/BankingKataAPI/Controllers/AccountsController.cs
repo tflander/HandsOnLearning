@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using BankingKataAPI.Models;
 using BankingKataAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,43 +9,23 @@ namespace BankingKataAPI.Controllers
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        private AccountsService accountsService;
+        private readonly AccountsService _accountsService;
 
         public AccountsController(AccountsService accountsService){
-            this.accountsService = accountsService;
+            _accountsService = accountsService;
         }
 
-        // GET api/accounts
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/accounts/5
         [HttpGet("{id}")]
-        public Account Get(int id)
+        public IActionResult Get(Guid id)
         {
-            return this.accountsService.FindAccount(id);
+            return Ok(_accountsService.FindAccount(id));
         }
 
-        // POST api/accounts
-        [HttpPost]
-        public void Post([FromBody]Money value)
+        [HttpPost("")]
+        public IActionResult Post([FromBody] Money[] monies)
         {
-            this.accountsService.OpenNewAccount(value);
-        }
-
-        // PUT api/accounts/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/accounts/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var accounts = monies.Select(m => _accountsService.OpenNewAccount(m)).ToArray();
+            return Ok(accounts);
         }
     }
 }

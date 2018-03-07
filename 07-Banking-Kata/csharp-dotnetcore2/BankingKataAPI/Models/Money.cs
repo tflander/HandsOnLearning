@@ -1,101 +1,76 @@
 ﻿using System;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace BankingKataAPI.Models
 {
     public sealed class Money : IEquatable<Money>, IComparable, IComparable<Money>
     {
 
-        private static int[] cents = new int[] { 1, 10, 100, 1000 };
+        private static readonly int[] Cents = { 1, 10, 100, 1000 };
 
-        CultureInfo cultureInfo;
+        private readonly CultureInfo _cultureInfo;
 
-        RegionInfo regionInfo;
+        private readonly RegionInfo _regionInfo;
 
-        long amount;
+        public long LongAmount { get; private set; }
 
         public Money() : this(0, CultureInfo.CurrentCulture) { }
 
         public Money(decimal amount) : this(amount, CultureInfo.CurrentCulture) { }
 
-        public Money(long amount) : this(amount, CultureInfo.CurrentCulture) { }
+        public Money(long longAmount) : this(longAmount, CultureInfo.CurrentCulture) { }
 
         public Money(string cultureName) : this(new CultureInfo(cultureName)) { }
 
-        public Money(decimal amount, string cultureName) : this(amount, new CultureInfo
-
-            (cultureName))
+        public Money(decimal amount, string cultureName) : this(amount, new CultureInfo(cultureName))
         { }
 
         public Money(CultureInfo cultureInfo) : this(0, cultureInfo) { }
 
         public Money(decimal amount, CultureInfo cultureInfo)
         {
+            _cultureInfo = cultureInfo ?? throw new ArgumentNullException("cultureInfo");
 
-            if (cultureInfo == null) throw new ArgumentNullException("cultureInfo");
+            _regionInfo = new RegionInfo(cultureInfo.LCID);
 
-            this.cultureInfo = cultureInfo;
-
-            this.regionInfo = new RegionInfo(cultureInfo.LCID);
-
-            this.amount = Convert.ToInt64(Math.Round(amount * CentFactor));
+            LongAmount = Convert.ToInt64(Math.Round(amount * CentFactor));
 
         }
 
-        public Money(long amount, CultureInfo cultureInfo)
+        [JsonConstructor]
+        public Money(long longAmount, string isoCurrencySymbol)
+            : this(longAmount, CultureInfo.GetCultureInfo(isoCurrencySymbol))
         {
 
-            if (cultureInfo == null) throw new ArgumentNullException("cultureInfo");
-
-            this.cultureInfo = cultureInfo;
-
-            this.regionInfo = RegionInfo.CurrentRegion;
-
-            this.amount = amount * CentFactor;
-
         }
 
-        private int CentFactor
+        public Money(long longAmount, CultureInfo cultureInfo)
         {
+            _cultureInfo = cultureInfo ?? throw new ArgumentNullException(nameof(cultureInfo));
 
-            get { return cents[cultureInfo.NumberFormat.CurrencyDecimalDigits]; }
+            _regionInfo = RegionInfo.CurrentRegion;
 
-        }
-
-        public string EnglishCultureName
-        {
-
-            get { return cultureInfo.Name; }
+            LongAmount = longAmount * CentFactor;
 
         }
 
-        public string ISOCurrencySymbol
-        {
+        private int CentFactor => Cents[_cultureInfo.NumberFormat.CurrencyDecimalDigits];
 
-            get { return regionInfo.ISOCurrencySymbol; }
+        public string EnglishCultureName => _cultureInfo.Name;
 
-        }
+        public string ISOCurrencySymbol => _regionInfo.ISOCurrencySymbol;
 
-        public decimal Amount
-        {
+        public decimal Amount => LongAmount / CentFactor;
 
-            get { return amount / CentFactor; }
-
-        }
-
-        public int DecimalDigits
-        {
-
-            get { return cultureInfo.NumberFormat.CurrencyDecimalDigits; }
-
-        }
+        public int DecimalDigits => _cultureInfo.NumberFormat.CurrencyDecimalDigits;
 
         public static bool operator >(Money first, Money second)
         {
 
             AssertSameCurrency(first, second);
 
-            return first.amount > second.amount;
+            return first.LongAmount > second.LongAmount;
 
         }
 
@@ -104,7 +79,7 @@ namespace BankingKataAPI.Models
 
             AssertSameCurrency(first, second);
 
-            return first.amount >= second.amount;
+            return first.LongAmount >= second.LongAmount;
 
         }
 
@@ -113,7 +88,7 @@ namespace BankingKataAPI.Models
 
             AssertSameCurrency(first, second);
 
-            return first.amount <= second.amount;
+            return first.LongAmount <= second.LongAmount;
 
         }
 
@@ -122,7 +97,7 @@ namespace BankingKataAPI.Models
 
             AssertSameCurrency(first, second);
 
-            return first.amount < second.amount;
+            return first.LongAmount < second.LongAmount;
 
         }
 
@@ -177,7 +152,7 @@ namespace BankingKataAPI.Models
         public override int GetHashCode()
         {
 
-            return amount.GetHashCode() ^ cultureInfo.GetHashCode();
+            return LongAmount.GetHashCode() ^ _cultureInfo.GetHashCode();
 
         }
 
@@ -197,7 +172,7 @@ namespace BankingKataAPI.Models
 
             return ((ISOCurrencySymbol == other.ISOCurrencySymbol) &&
 
-                    (amount == other.amount));
+                    (LongAmount == other.LongAmount));
 
         }
 
@@ -258,14 +233,14 @@ namespace BankingKataAPI.Models
         public Money Copy()
         {
 
-            return new Money(Amount, cultureInfo);
+            return new Money(Amount, _cultureInfo);
 
         }
 
         public Money Clone()
         {
 
-            return new Money(cultureInfo);
+            return new Money(_cultureInfo);
 
         }
 
@@ -331,7 +306,7 @@ namespace BankingKataAPI.Models
 
             for (int i = 0; i < ratios.Length; i++) total += ratios[i];
 
-            long remainder = amount;
+            long remainder = LongAmount;
 
             Money[] results = new Money[ratios.Length];
 
@@ -340,12 +315,12 @@ namespace BankingKataAPI.Models
 
                 results[i] = new Money(Amount * ratios[i] / total, cultureInfo);
 
-                remainder -= results[i].amount;
+                remainder -= results[i].LongAmount;
 
                 for (int j = 0; j < remainder; j++)
                 {
 
-                    results[i].amount++;
+                    results[i].LongAmount++;
 
                 }
 
@@ -358,14 +333,14 @@ namespace BankingKataAPI.Models
         public override string ToString()
         {
 
-            return Amount.ToString("C", cultureInfo);
+            return Amount.ToString("C", _cultureInfo);
 
         }
 
         public string ToString(string format)
         {
 
-            return Amount.ToString(format, this.cultureInfo);
+            return Amount.ToString(format, this._cultureInfo);
 
         }
 

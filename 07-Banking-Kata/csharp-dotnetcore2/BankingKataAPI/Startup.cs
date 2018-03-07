@@ -1,4 +1,6 @@
-﻿using BankingKataAPI.Services;
+﻿using BankingKataAPI.Models;
+using BankingKataAPI.Persistence;
+using BankingKataAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,15 +22,14 @@ namespace BankingKataAPI
         {
             services.AddMvc();
 			services.AddTransient<AccountsService, AccountsService>();
+            services.AddSingleton<IRepository<Account>, NetworkRepository<Account>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseMvc();
         }
