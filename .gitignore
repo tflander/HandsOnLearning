@@ -32,6 +32,7 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 .DS_Store
+<<<<<<< HEAD
 
 # Logs
 logs
@@ -94,3 +95,6 @@ typings/
 
 # next.js build output
 .next
+=======
+**/.vs
+>>>>>>> fde7c38d1ff585ceb7e94507c083e8d41940868a
