@@ -1,5 +1,6 @@
-﻿using System;
-namespace Katas
+﻿using BankingKataAPI.Models;
+
+namespace BankingKataAPI.Services
 {
     public class AccountsService
     {

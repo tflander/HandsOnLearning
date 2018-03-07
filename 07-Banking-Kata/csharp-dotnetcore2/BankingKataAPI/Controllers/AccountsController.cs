@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using BankingKataAPI.Models;
+using BankingKataAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Katas
+namespace BankingKataAPI.Controllers
 {
     [Route("api/[controller]")]
     public class AccountsController : Controller
