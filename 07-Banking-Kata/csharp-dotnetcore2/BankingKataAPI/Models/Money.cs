@@ -31,11 +31,17 @@ namespace BankingKataAPI.Models
         public Money(decimal amount, CultureInfo cultureInfo)
         {
             _cultureInfo = cultureInfo ?? throw new ArgumentNullException("cultureInfo");
-
-            _regionInfo = new RegionInfo(cultureInfo.LCID);
+            _regionInfo = GetRegionOrDefault(cultureInfo);
 
             LongAmount = Convert.ToInt64(Math.Round(amount * CentFactor));
 
+        }
+
+        private static RegionInfo GetRegionOrDefault(CultureInfo cultureInfo)
+        {
+            if (Equals(cultureInfo, CultureInfo.InvariantCulture))
+                return RegionInfo.CurrentRegion;
+            return new RegionInfo(cultureInfo.LCID);
         }
 
         [JsonConstructor]
