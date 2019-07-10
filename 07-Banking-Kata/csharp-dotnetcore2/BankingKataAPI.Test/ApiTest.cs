@@ -8,18 +8,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace BankingKataAPI.Test
 {
     public class ApiTest : IDisposable
     {
-        private readonly ITestOutputHelper _output;
         private readonly TestServer _server;
 
-        public ApiTest(ITestOutputHelper output)
+        public ApiTest()
         {
-            _output = output;
             _server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
         }
 
